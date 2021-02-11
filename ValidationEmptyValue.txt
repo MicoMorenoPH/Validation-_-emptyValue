@@ -10,18 +10,43 @@ https://stackoverflow.com/questions/3871547/js-iterating-over-result-of-geteleme
 
 //JS
 $(document).on('click', '#txtTest', function () {
-                var els = document.getElementsByClassName("testClass");
-                Array.prototype.forEach.call(els, function (el) {
-                    // Do stuff here
-                    //console.log(el.value);
+        var els = document.getElementsByClassName("testClass");
+        Array.prototype.forEach.call(els, function (el) {
+            // Do stuff here
+            //console.log(el.value);
 
-                    if (el.value == "") {
-                        alert(el.id);
-                        document.getElementById(el.id).style.backgroundColor = "red";
-                        //alert("testing")
-                        //document.getElementById("testClass").style.color = "red";
-                    } else {
-                        document.getElementById(el.id).style.backgroundColor = "white";
-                    }
-                });
-         });
+            if (el.value == "") {
+                alert(el.id);
+                document.getElementById(el.id).style.backgroundColor = "red";
+                //alert("testing")
+                //document.getElementById("testClass").style.color = "red";
+            } else {
+                document.getElementById(el.id).style.backgroundColor = "white";
+            }
+        });
+ });
+ 
+ //..lostfocus on the object 
+ $('.reqField').focusout(function () {
+    checkField("reqField", function (data) { });
+});
+
+//..create dynamic validation to uncolor the object 
+function checkField(objName, callback) {
+    var myvalidation;
+    var els = document.getElementsByClassName(objName);
+
+    Array.prototype.forEach.call(els, function (el) {
+        if (el.value == "") {
+            myvalidation = true;
+            document.getElementById(el.id).style.borderBottomColor = "red";
+        } else {
+            document.getElementById(el.id).style.borderBottomColor = "#ced4da";
+        }
+    });
+    if (myvalidation == true) {
+        callback(true);
+    } else {
+        callback(false);
+    }
+}
